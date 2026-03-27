@@ -17,11 +17,15 @@ export function App() {
     setItems([...items, newItem])
   }; 
 
+  const handleDeleteItem = (id) => {
+    setItems(items.filter((item => item.id !== id)));
+  }
+
   return (
     <>
       <h1>Yarn stash</h1>
       <ItemForm onAddItem={handleAddItem}/>
-      <ItemList items={items}/>
+      <ItemList items={items} onDeleteItem={handleDeleteItem}/>
 
     </>
   )
