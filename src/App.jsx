@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { ItemList } from "./components/ItemList";
+import { ItemForm } from "./components/ItemForm";
 
 export function App() {
   const [items, setItems] = useState([
@@ -14,6 +15,7 @@ export function App() {
   return (
     <>
       <h1>Yarn stash</h1>
+      <ItemForm />
       <ItemList items={items}/>
 
     </>
