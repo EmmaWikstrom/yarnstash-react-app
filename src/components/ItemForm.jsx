@@ -2,17 +2,23 @@ import { useState } from "react";
 
 export function ItemForm({ onAddItem }) {
   const [name, setName] = useState("");
+  const [brand, setBrand] = useState("");
+  const [weight, setWeight] = useState(""); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const newItem = {
       id: Date.now(),
-      name: name,
+      name, 
+      brand, 
+      weight,
     };
 
     onAddItem(newItem);
     setName("");
+    setBrand("");
+    setWeight("");
   };
 
   return (
@@ -22,6 +28,18 @@ export function ItemForm({ onAddItem }) {
         placeholder="Yarn name"
         value={name}
         onChange={(event) => setName(event.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Brand"
+        value={brand}
+        onChange={(event) => setBrand(event.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Weight"
+        value={weight}
+        onChange={(event) => setWeight(event.target.value)}
       />
       <button type="submit">Add item</button>
     </form>
