@@ -12,10 +12,15 @@ export function App() {
       weight: "DK",
     }
   ]);
+
+  const handleAddItem = (newItem) => {
+    setItems([...items, newItem])
+  }; 
+
   return (
     <>
       <h1>Yarn stash</h1>
-      <ItemForm />
+      <ItemForm onAddItem={handleAddItem}/>
       <ItemList items={items}/>
 
     </>
