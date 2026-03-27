@@ -1,9 +1,13 @@
-import './App.css';
+import "./App.css";
+import { ItemList } from "./components/ItemList";
 
-function App() {
+export function App() {
   return (
-    <h1>Yarn stash</h1>
-  );
+    <>
+      <h1>Yarn stash</h1>
+      <ItemList />
+    </>
+  )
 }
 
-export default App;
+
