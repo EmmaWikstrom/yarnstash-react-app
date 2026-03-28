@@ -1,6 +1,6 @@
 import { ItemCard } from "./ItemCard"
 
-export function ItemList({ items, onDeleteItem }) {
+export function ItemList({ items, onDeleteItem, onEditItem }) {
     return (
         <div>
             {items.map((item) => (
@@ -8,6 +8,7 @@ export function ItemList({ items, onDeleteItem }) {
                     key={item.id}
                     item={item}
                     onDeleteItem={onDeleteItem}
+                    onEditItem={onEditItem}
                 />
             ))}
         </div>

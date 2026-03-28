@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export function ItemForm({ onAddItem }) {
+export function ItemForm({ onAddItem, editingItem }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [weight, setWeight] = useState(""); 
+
+  useEffect(() => {
+    if (editingItem) { 
+        setName(editingItem.name);
+        setBrand(editingItem.brand || "");
+        setWeight(editingItem.weight || "");
+    }
+  }, [editingItem])
 
   const handleSubmit = (event) => {
     event.preventDefault();

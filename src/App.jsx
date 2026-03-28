@@ -13,6 +13,12 @@ export function App() {
     }
   ]);
 
+  const [editingItem, setEditingItem] = useState(null);
+
+  const handleEditItem = (item) => {
+    setEditingItem(item);
+  }
+
   const handleAddItem = (newItem) => {
     setItems([...items, newItem])
   }; 
@@ -24,8 +30,14 @@ export function App() {
   return (
     <>
       <h1>Yarn stash</h1>
-      <ItemForm onAddItem={handleAddItem}/>
-      <ItemList items={items} onDeleteItem={handleDeleteItem}/>
+      <ItemForm 
+      onAddItem={handleAddItem}
+      editingItem={editingItem}
+      />
+      <ItemList items={items} 
+      onDeleteItem={handleDeleteItem}
+      onEditItem={handleEditItem}
+      />
 
     </>
   )
