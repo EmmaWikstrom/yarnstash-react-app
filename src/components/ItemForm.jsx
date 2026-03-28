@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function ItemForm({ onAddItem, editingItem }) {
+export function ItemForm({ onAddItem, onUpdateItem, editingItem }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [weight, setWeight] = useState(""); 
@@ -16,24 +16,31 @@ export function ItemForm({ onAddItem, editingItem }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const newItem = {
-      id: Date.now(),
+    const itemData = {
+      id: editingItem ? editingItem.id : Date.now(),
       name, 
       brand, 
       weight,
     };
 
-    onAddItem(newItem);
+    if (editingItem) {
+        onUpdateItem(itemData); 
+    } else {
+        onAddItem(itemData);
+    }
+
     setName("");
     setBrand("");
     setWeight("");
   };
 
   return (
+    <>
+    <h2>{editingItem ? "Edit yarn" : "Add new yarn"}</h2>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Yarn name"
+        placeholder="Name"
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
@@ -49,7 +56,10 @@ export function ItemForm({ onAddItem, editingItem }) {
         value={weight}
         onChange={(event) => setWeight(event.target.value)}
       />
-      <button type="submit">Add item</button>
+      <button type="submit">
+        {editingItem ? "Update" : "Add" }
+      </button>
     </form>
+    </>
   );
 }

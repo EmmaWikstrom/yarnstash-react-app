@@ -10,37 +10,43 @@ export function App() {
       name: "Soft Merino",
       brand: "Drops",
       weight: "DK",
-    }
+    },
   ]);
 
   const [editingItem, setEditingItem] = useState(null);
 
   const handleEditItem = (item) => {
     setEditingItem(item);
-  }
+  };
+
+  const handleUpdateItem = (updatedItem) => {
+    setItems(
+      items.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+    );
+    setEditingItem(null);
+  };
 
   const handleAddItem = (newItem) => {
-    setItems([...items, newItem])
-  }; 
+    setItems([...items, newItem]);
+  };
 
   const handleDeleteItem = (id) => {
-    setItems(items.filter((item => item.id !== id)));
-  }
+    setItems(items.filter((item) => item.id !== id));
+  };
 
   return (
     <>
       <h1>Yarn stash</h1>
-      <ItemForm 
-      onAddItem={handleAddItem}
-      editingItem={editingItem}
+      <ItemForm
+        onAddItem={handleAddItem}
+        onUpdateItem={handleUpdateItem}
+        editingItem={editingItem}
       />
-      <ItemList items={items} 
-      onDeleteItem={handleDeleteItem}
-      onEditItem={handleEditItem}
+      <ItemList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onEditItem={handleEditItem}
       />
-
     </>
-  )
+  );
 }
-
-
