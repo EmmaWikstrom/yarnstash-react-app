@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function ItemForm({ onAddItem, onUpdateItem, editingItem }) {
+export function ItemForm({ onAddItem, onUpdateItem, onCancelEdit, editingItem }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [weight, setWeight] = useState(""); 
@@ -57,8 +57,18 @@ export function ItemForm({ onAddItem, onUpdateItem, editingItem }) {
         onChange={(event) => setWeight(event.target.value)}
       />
       <button type="submit">
-        {editingItem ? "Update" : "Add" }
+        {editingItem ? "Update yarn" : "Add" }
       </button>
+      {editingItem && (
+        <button type="button" onClick={() => {
+            setName("");
+            setBrand("");
+            setWeight("");
+            onCancelEdit();
+            }}>
+            Cancel
+        </button>
+      )}
     </form>
     </>
   );

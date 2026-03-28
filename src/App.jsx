@@ -40,6 +40,7 @@ export function App() {
       <ItemForm
         onAddItem={handleAddItem}
         onUpdateItem={handleUpdateItem}
+        onCancelEdit={() => setEditingItem(null)}
         editingItem={editingItem}
       />
       <ItemList
