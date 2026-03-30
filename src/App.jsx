@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ItemList } from "./components/ItemList";
 import { ItemForm } from "./components/ItemForm";
 
@@ -12,9 +12,10 @@ export function App() {
       weight: "DK",
     },
   ]);
-  const [message, setMessage] = useState("");
-  const [editingItem, setEditingItem] = useState(null);
 
+  const [editingItem, setEditingItem] = useState(null);
+  const [message, setMessage] = useState("");
+  
     const handleAddItem = (newItem) => {
     setItems([...items, newItem]);
     setMessage(`Added ${newItem.name} to stash!`);
@@ -39,6 +40,16 @@ export function App() {
     setItems(items.filter((item) => item.id !== id));
     setMessage(`Removed ${deletedItem.name} from stash!`);
   };
+
+  useEffect (() => { 
+    if (message) {
+        const timer = setTimeout(() => {
+            setMessage("");
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }
+  }, [message])
 
   return (
     <>
