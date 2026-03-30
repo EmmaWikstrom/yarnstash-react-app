@@ -43,6 +43,7 @@ export function ItemForm({ onAddItem, onUpdateItem, onCancelEdit, editingItem })
         placeholder="Name"
         value={name}
         onChange={(event) => setName(event.target.value)}
+        required
       />
       <input
         type="text"
@@ -56,7 +57,7 @@ export function ItemForm({ onAddItem, onUpdateItem, onCancelEdit, editingItem })
         value={weight}
         onChange={(event) => setWeight(event.target.value)}
       />
-      <button type="submit">
+      <button type="submit" disabled={!name.trim()}>
         {editingItem ? "Update yarn" : "Add" }
       </button>
       {editingItem && (
