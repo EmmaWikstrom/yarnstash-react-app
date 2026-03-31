@@ -61,7 +61,10 @@ export function ItemForm({ onAddItem, onUpdateItem, onCancelEdit, editingItem })
         {editingItem ? "Update yarn" : "Add" }
       </button>
       {editingItem && (
-        <button type="button" onClick={() => {
+        <button 
+        type="button" 
+        className="secondary-button"
+        onClick={() => {
             setName("");
             setBrand("");
             setWeight("");

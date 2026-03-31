@@ -53,19 +53,26 @@ export function App() {
 
   return (
     <>
-      <h1>Yarn stash</h1>
-      {message && <p>{message}</p>}
-      <ItemForm
-        onAddItem={handleAddItem}
-        onUpdateItem={handleUpdateItem}
-        onCancelEdit={() => setEditingItem(null)}
-        editingItem={editingItem}
-      />
-      <ItemList
-        items={items}
-        onDeleteItem={handleDeleteItem}
-        onEditItem={handleEditItem}
-      />
+      <header className="site-header">
+        <div className="container">
+          <h1>Yarn stash</h1>
+          <p>Keep track of what is in the cupboard</p>
+          {message && <p className="message">{message}</p>}
+        </div>
+      </header>
+      <main className="container">
+        <ItemForm
+          onAddItem={handleAddItem}
+          onUpdateItem={handleUpdateItem}
+          onCancelEdit={() => setEditingItem(null)}
+          editingItem={editingItem}
+        />
+        <ItemList
+          items={items}
+          onDeleteItem={handleDeleteItem}
+          onEditItem={handleEditItem}
+        />
+      </main>
     </>
   );
 }
