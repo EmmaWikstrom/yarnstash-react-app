@@ -54,12 +54,7 @@ export function ItemForm({
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          if (message === "Name is required") {
-              setMessage("");
-            }
-          }}
+          onChange={(event) => setName(event.target.value)}
         />
         <input
           type="text"
