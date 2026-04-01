@@ -1,49 +1,50 @@
-# Yarn Stash App
+# Yarn Stash
 
-A simple React application for managing a personal yarn collection.
+A React application for managing a personal yarn collection.
+Designed to make it easy to keep track of your yarn and quickly find what you need.
 
 ## Features
-
+- View yarn from an external API
 - Add new yarn items
-- View all yarn in a list
 - Edit existing items
 - Delete items
+- Instant UI updates without page reload
+- Feedback messages for user actions
+- Clean and intuitive interface
 
 ## Tech Stack
-
 - React
-- JavaScript
+- JavaScript (ES6+)
 - CSS
-
-## Status
-
-This project is currently in progress as part of a frontend development course.
+- Custom REST API (Node.js, Express, MongoDB)
 
 ## Purpose
 
-The goal of this project is to practice core React concepts such as:
+The goal of this project was to practice core React concepts:
 
-- Components and props
-- State management
-- Handling user input
+- Component-based architecture
+- State management with hooks
+- Handling forms and user input
 - Updating UI dynamically
+- Integrating with an API
 
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies
+2. Install dependencies using: npm install
+3. Start the development server using: npm run dev
 
-npm install
+## Notes
 
-3. Start the development server
-
-npm run dev
+The application fetches initial data from a custom API.
+The API is hosted on a free tier service and may take up to 30–50 seconds to respond on the first request if it has been inactive. This is due to the server going into sleep mode.
+Add, edit and delete actions are currently handled in React state to ensure a fast and responsive UI.
 
 ## Future Improvements
-
-- Persist data (localStorage or API)
-- Improve UI and styling
-- Add validation for inputs
+- Persist add/edit/delete to the API
+- Improve form validation and error handling
+- Add detailed item view
+- Enhance UI polish and interactions
 
 ## Author
 
