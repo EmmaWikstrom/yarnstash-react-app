@@ -4,15 +4,7 @@ import { ItemList } from "./components/ItemList";
 import { ItemForm } from "./components/ItemForm";
 
 export function App() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "Soft Merino",
-      brand: "Drops",
-      weight: "DK",
-    },
-  ]);
-
+  const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
   const [message, setMessage] = useState("");
   
@@ -37,9 +29,34 @@ export function App() {
   const handleDeleteItem = (id) => {
     const deletedItem = items.find((item) => item.id === id);
 
+    const isConfirmed = window.confirm(
+      `Are you sure you want to remove ${deletedItem.name} from stash?`);
+
+    if (!isConfirmed) {
+      return;
+    }
     setItems(items.filter((item) => item.id !== id));
     setMessage(`Removed ${deletedItem.name} from stash!`);
   };
+
+  useEffect(() => {
+    const fetchYarns = async () => {
+      try {
+        const response = await fetch("https://knitting-api.onrender.com/api/yarns");
+        const data = await response.json();
+
+        const formattedData = data.map((item) => ({
+          ...item,
+          id:item._id,
+        }));
+
+        setItems(formattedData);
+      } catch (error) {
+        console.error("Error fetching yarns:", error);
+      }
+    }; 
+    fetchYarns();
+  }, []);
 
   useEffect (() => { 
     if (message) {
@@ -56,8 +73,7 @@ export function App() {
       <header className="site-header">
         <div className="container">
           <h1>Yarn stash</h1>
-          <p>Keep track of what is in the cupboard</p>
-          {message && <p className="message">{message}</p>}
+          <p>Keep your yarn untangled and easy to find</p>
         </div>
       </header>
       <main className="container">
@@ -65,7 +81,9 @@ export function App() {
           onAddItem={handleAddItem}
           onUpdateItem={handleUpdateItem}
           onCancelEdit={() => setEditingItem(null)}
+          setMessage={setMessage}
           editingItem={editingItem}
+          message={message}
         />
         <ItemList
           items={items}

@@ -37,9 +37,16 @@ main.container {
 /* MESSAGE */
 
 .message {
-  margin-top: 16px;
+  margin: 0;
   color: var(--color-accent);
   font-weight: 600;
+  min-height: 24px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.message.is-visible {
+  opacity: 1;
 }
 
 /* FORM */
@@ -101,6 +108,14 @@ form button:disabled {
   background: var(--color-background-page);
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* STASH */
 
 .stash {
@@ -119,7 +134,7 @@ form button:disabled {
 }
 
 .yarn-card h3 {
-  margin: 20px 0 12px;
+  margin: 24px 0 16px;
 }
 
 .yarn-details {
@@ -136,23 +151,31 @@ form button:disabled {
 
 .detail-row:first-child {
   border-top: none;
-  padding-top: 0;
+  padding-top: 8px;
 }
 
 .yarn-card h3,
 .yarn-card .yarn-details,
-.card-actions {
+.yarn-card .card-actions {
   padding: 0 20px;
 }
 
 .card-actions {
   display: flex;
+  justify-content: flex-end;
   gap: 12px;
-  margin: 8px 0 20px 0;
+  margin: 20px 0 0 0;
+}
+
+.card-actions button { 
+  font-size: 0.9rem;
+  padding: 6px 10px;
 }
 
 .empty-state {
   color: var(--color-text-secondary);
+  font-style: italic;
+  padding: 16px 0;
 }
 
 /* RESPONSIVE */
@@ -170,5 +193,9 @@ form button:disabled {
   form button,
   form .secondary-button {
     width: fit-content;
+  }
+
+    .form-actions {
+    grid-column: 1 / -1;
   }
 }
