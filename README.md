@@ -1,6 +1,7 @@
 # Yarn Stash
 
 A React application for managing a personal yarn collection.
+
 Designed to make it easy to keep track of your yarn and quickly find what you need.
 
 ## Features
@@ -32,7 +33,7 @@ The goal of this project was to practice core React concepts:
 
 1. Clone the repository
 2. Install dependencies using: npm install
-3. Start the development server using: npm run dev
+3. Start the development server using: npm start
 
 ## Notes
 
@@ -42,9 +43,13 @@ Add, edit and delete actions are currently handled in React state to ensure a fa
 
 ## Future Improvements
 - Persist add/edit/delete to the API
-- Improve form validation and error handling
+- Improve form validation and user feedback
 - Add detailed item view
 - Enhance UI polish and interactions
+
+## Live Demo 
+
+[Open Yarn Stash](https://yarnstash-sooty.vercel.app/)
 
 ## Author
 
