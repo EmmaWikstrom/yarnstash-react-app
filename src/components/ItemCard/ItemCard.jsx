@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function ItemCard({ item, onDeleteItem, onEditItem }) {
   return (
     <article className="yarn-card">
@@ -19,17 +21,20 @@ export function ItemCard({ item, onDeleteItem, onEditItem }) {
       </dl>
 
       <div className="card-actions">
-        <button 
-        type="button" 
-        className="secondary-button"
-        onClick={() => onEditItem(item)}>
+        <Link to={`/yarns/${item.id}`}>View details</Link>
+        <button
+          type="button"
+          className="secondary-button"
+          onClick={() => onEditItem(item)}
+        >
           Edit
         </button>
 
-        <button 
-        type="button" 
-        className="delete-button"
-        onClick={() => onDeleteItem(item.id)}>
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => onDeleteItem(item.id)}
+        >
           Delete
         </button>
       </div>
