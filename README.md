@@ -1,7 +1,6 @@
 # Yarn Stash
 
 A React application for managing a personal yarn collection.
-
 Designed to make it easy to keep track of your yarn and quickly find what you need.
 
 ## Features
