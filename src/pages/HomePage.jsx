@@ -1,9 +1,12 @@
 export function HomePage() {
   return (
     <main className="container">
-      <h1>Welcome</h1>
-      <p>This the yarn and project dashboard</p>
-      <p>More content to come, please head over to the yarn stash to see whats documented</p>
+      <h2>Welcome</h2>
+      <p>
+        Keep track of yarn, stay organized, and get a clear overview of
+        available materials.
+      </p>
+      <p>Start by exploring the yarn stash</p>
     </main>
   );
 }
