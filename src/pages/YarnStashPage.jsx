@@ -1,4 +1,3 @@
-import { Header } from "../components/Header/Header";
 import { useState, useEffect } from "react";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ItemForm } from "../components/ItemForm/ItemForm";
@@ -72,8 +71,11 @@ export function YarnStashPage() {
 
   return (
     <>
-      <Header />
       <main className="container">
+        <section>
+          <h2>Yarn stash</h2>
+          <p>Keep your yarn untangled and easy to find</p>
+        </section>
         <ItemForm
           onAddItem={handleAddItem}
           onUpdateItem={handleUpdateItem}
