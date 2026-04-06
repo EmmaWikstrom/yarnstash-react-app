@@ -26,12 +26,13 @@ export function App() {
           }
         />
         <Route
-        path="/yarns/:id"
-        element= {
-          <Layout>
-            <YarnDetailsPage />
-          </Layout>
-        } />
+          path="/yarns/:id"
+          element={
+            <Layout>
+              <YarnDetailsPage />
+            </Layout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
