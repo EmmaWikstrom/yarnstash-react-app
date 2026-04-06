@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { ItemList } from "./components/ItemList";
-import { ItemForm } from "./components/ItemForm";
+import { ItemList } from "./components/ItemList/ItemList";
+import { ItemForm } from "./components/ItemForm/ItemForm";
 
 export function App() {
   const [items, setItems] = useState([]);
