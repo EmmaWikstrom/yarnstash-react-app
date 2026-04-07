@@ -1,3 +1,4 @@
+import { getAllYarns } from "../services/yarnService";
 import { useState, useEffect } from "react";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ItemForm } from "../components/ItemForm/ItemForm";
@@ -38,26 +39,18 @@ export function YarnStashPage() {
     setMessage(`Removed ${deletedItem.name} from stash!`);
   };
 
-  useEffect(() => {
-    const fetchYarns = async () => {
-      try {
-        const response = await fetch(
-          "https://knitting-api.onrender.com/api/yarns",
-        );
-        const data = await response.json();
+useEffect(() => {
+  const fetchYarns = async () => {
+    try {
+      const data = await getAllYarns();
+      setItems(data);
+    } catch (error) {
+      console.error("Error fetching yarns:", error);
+    }
+  };
 
-        const formattedData = data.map((item) => ({
-          ...item,
-          id: item._id,
-        }));
-
-        setItems(formattedData);
-      } catch (error) {
-        console.error("Error fetching yarns:", error);
-      }
-    };
-    fetchYarns();
-  }, []);
+  fetchYarns();
+}, []);
 
   useEffect(() => {
     if (message) {
