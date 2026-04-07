@@ -48,10 +48,33 @@ useEffect(() => {
   fetchYarn();
 }, [id]);
 
-  const handleUpdateYarn = (updatedYarn) => {
-    setYarn(updatedYarn);
-    setIsEditing(false);
-  };
+const handleUpdateYarn = (updatedYarn) => {
+  const nextYarn = { ...yarn, ...updatedYarn };
+
+  setYarn(nextYarn);
+
+  if (nextYarn.isLocal) {
+    const savedYarnsRaw = localStorage.getItem("yarnStash");
+    let storedYarns = [];
+
+    if (savedYarnsRaw) {
+      try {
+        const parsed = JSON.parse(savedYarnsRaw);
+        storedYarns = Array.isArray(parsed) ? parsed : [];
+      } catch {
+        storedYarns = [];
+      }
+    }
+
+    const nextStoredYarns = storedYarns.map((item) =>
+      String(item.id) === String(nextYarn.id) ? nextYarn : item
+    );
+
+    localStorage.setItem("yarnStash", JSON.stringify(nextStoredYarns));
+  }
+
+  setIsEditing(false);
+};
 
   if (loading) {
     return <p>Loading yarn details...</p>;
