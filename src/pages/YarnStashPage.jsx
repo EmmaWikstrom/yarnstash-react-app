@@ -1,6 +1,8 @@
+import { getAllYarns } from "../services/yarnService";
 import { useState, useEffect } from "react";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ItemForm } from "../components/ItemForm/ItemForm";
+
 
 export function YarnStashPage() {
   const [items, setItems] = useState([]);
@@ -8,7 +10,17 @@ export function YarnStashPage() {
   const [message, setMessage] = useState("");
 
   const handleAddItem = (newItem) => {
-    setItems([...items, newItem]);
+    const localItem = {
+      ...newItem,
+      isLocal: true,
+    };
+    const nextItems = [...items, localItem];
+
+    setItems(nextItems);
+
+    const localItems = nextItems.filter((item) => item.isLocal);
+    localStorage.setItem("yarnStash", JSON.stringify(localItems));
+
     setMessage(`Added ${newItem.name} to stash!`);
   };
 
@@ -17,9 +29,15 @@ export function YarnStashPage() {
   };
 
   const handleUpdateItem = (updatedItem) => {
-    setItems(
-      items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
+    const nextItems = items.map((item) =>
+      item.id === updatedItem.id ? { ...item, ...updatedItem } : item,
     );
+
+    
+    setItems(nextItems);
+    const localItems = nextItems.filter((item) => item.isLocal);
+    localStorage.setItem("yarnStash", JSON.stringify(localItems));
+
     setEditingItem(null);
     setMessage(`Updated ${updatedItem.name}!`);
   };
@@ -34,28 +52,41 @@ export function YarnStashPage() {
     if (!isConfirmed) {
       return;
     }
-    setItems(items.filter((item) => item.id !== id));
+
+    const nextItems = items.filter((item) => item.id !== id);
+
+    setItems(nextItems);
+
+    const localItems = nextItems.filter((item) => item.isLocal);
+    localStorage.setItem("yarnStash", JSON.stringify(localItems));
+
     setMessage(`Removed ${deletedItem.name} from stash!`);
   };
 
   useEffect(() => {
     const fetchYarns = async () => {
       try {
-        const response = await fetch(
-          "https://knitting-api.onrender.com/api/yarns",
-        );
-        const data = await response.json();
+        const apiYarns = await getAllYarns();
 
-        const formattedData = data.map((item) => ({
-          ...item,
-          id: item._id,
-        }));
+        const saved = localStorage.getItem("yarnStash");
 
-        setItems(formattedData);
+        let storedYarns = [];
+
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            storedYarns = Array.isArray(parsed) ? parsed : [];
+          } catch {
+            storedYarns = [];
+          }
+        }
+
+        setItems([...apiYarns, ...storedYarns]);
       } catch (error) {
         console.error("Error fetching yarns:", error);
       }
     };
+
     fetchYarns();
   }, []);
 

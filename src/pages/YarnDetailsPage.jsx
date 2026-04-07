@@ -1,3 +1,4 @@
+import { getYarnById } from "../services/yarnService";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ItemForm } from "../components/ItemForm/ItemForm";
@@ -10,35 +11,70 @@ export function YarnDetailsPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    const fetchYarn = async () => {
-      try {
-        setErrorMessage("");
+useEffect(() => {
+  const fetchYarn = async () => {
+    try {
+      setErrorMessage("");
 
-        const response = await fetch(
-          `https://knitting-api.onrender.com/api/yarns/${id}`,
-        );
+      const savedYarnsRaw = localStorage.getItem("yarnStash");
+      let storedYarns = [];
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch yarn details");
+      if (savedYarnsRaw) {
+        try {
+          const parsed = JSON.parse(savedYarnsRaw);
+          storedYarns = Array.isArray(parsed) ? parsed : [];
+        } catch {
+          storedYarns = [];
         }
-
-        const data = await response.json();
-        setYarn({ ...data, id: data._id });
-      } catch (error) {
-        console.error("Error fetching yarn details:", error);
-        setErrorMessage("Error fetching yarn details. Please try again later.");
-      } finally {
-        setLoading(false);
       }
-    };
-    fetchYarn();
-  }, [id]);
 
-  const handleUpdateYarn = (updatedYarn) => {
-    setYarn(updatedYarn);
-    setIsEditing(false);
+      const localYarn = storedYarns.find((item) => String(item.id) === id);
+
+      if (localYarn) {
+        setYarn(localYarn);
+        return;
+      }
+
+      const data = await getYarnById(id);
+      setYarn(data);
+    } catch (error) {
+      console.error("Error fetching yarn details:", error);
+      setErrorMessage("Error fetching yarn details. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  fetchYarn();
+}, [id]);
+
+const handleUpdateYarn = (updatedYarn) => {
+  const nextYarn = { ...yarn, ...updatedYarn };
+
+  setYarn(nextYarn);
+
+  if (nextYarn.isLocal) {
+    const savedYarnsRaw = localStorage.getItem("yarnStash");
+    let storedYarns = [];
+
+    if (savedYarnsRaw) {
+      try {
+        const parsed = JSON.parse(savedYarnsRaw);
+        storedYarns = Array.isArray(parsed) ? parsed : [];
+      } catch {
+        storedYarns = [];
+      }
+    }
+
+    const nextStoredYarns = storedYarns.map((item) =>
+      String(item.id) === String(nextYarn.id) ? nextYarn : item
+    );
+
+    localStorage.setItem("yarnStash", JSON.stringify(nextStoredYarns));
+  }
+
+  setIsEditing(false);
+};
 
   if (loading) {
     return <p>Loading yarn details...</p>;
