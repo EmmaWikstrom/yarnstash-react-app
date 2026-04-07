@@ -11,22 +11,42 @@ export function YarnDetailsPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    const fetchYarn = async () => {
-      try {
-        setErrorMessage("");
+useEffect(() => {
+  const fetchYarn = async () => {
+    try {
+      setErrorMessage("");
 
-        const data = await getYarnById(id);
-        setYarn(data);
-      } catch (error) {
-        console.error("Error fetching yarn details:", error);
-        setErrorMessage("Error fetching yarn details. Please try again later.");
-      } finally {
-        setLoading(false);
+      const savedYarnsRaw = localStorage.getItem("yarnStash");
+      let storedYarns = [];
+
+      if (savedYarnsRaw) {
+        try {
+          const parsed = JSON.parse(savedYarnsRaw);
+          storedYarns = Array.isArray(parsed) ? parsed : [];
+        } catch {
+          storedYarns = [];
+        }
       }
-    };
-    fetchYarn();
-  }, [id]);
+
+      const localYarn = storedYarns.find((item) => String(item.id) === id);
+
+      if (localYarn) {
+        setYarn(localYarn);
+        return;
+      }
+
+      const data = await getYarnById(id);
+      setYarn(data);
+    } catch (error) {
+      console.error("Error fetching yarn details:", error);
+      setErrorMessage("Error fetching yarn details. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchYarn();
+}, [id]);
 
   const handleUpdateYarn = (updatedYarn) => {
     setYarn(updatedYarn);
