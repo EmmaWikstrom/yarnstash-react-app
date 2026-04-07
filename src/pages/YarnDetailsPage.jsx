@@ -1,3 +1,4 @@
+import { getYarnById } from "../services/yarnService";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ItemForm } from "../components/ItemForm/ItemForm";
@@ -15,16 +16,8 @@ export function YarnDetailsPage() {
       try {
         setErrorMessage("");
 
-        const response = await fetch(
-          `https://knitting-api.onrender.com/api/yarns/${id}`,
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch yarn details");
-        }
-
-        const data = await response.json();
-        setYarn({ ...data, id: data._id });
+        const data = await getYarnById(id);
+        setYarn(data);
       } catch (error) {
         console.error("Error fetching yarn details:", error);
         setErrorMessage("Error fetching yarn details. Please try again later.");

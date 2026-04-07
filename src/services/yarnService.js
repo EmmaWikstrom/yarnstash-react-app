@@ -12,6 +12,7 @@ export async function getAllYarns() {
     return data.map((item) => ({
         ...item,
         id: item._id,
+        isLocal: false,
     }));
 }
 
@@ -26,7 +27,7 @@ export async function getYarnById(id) {
 
     return {
         ...data,
-        id: data._id
-
+        id: data._id,
+        isLocal: false,
     };
 }
