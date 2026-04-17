@@ -20,6 +20,9 @@ export function ItemCard({ item, onDeleteItem, onEditItem }) {
         )}
       </dl>
 
+      {/* REVIEW: The "View details" Link is unstyled compared to the adjacent buttons.
+          Consider adding a className (e.g., "secondary-button") so it visually matches
+          the Edit/Delete buttons, or style it as a distinct link with clear affordance. */}
       <div className="card-actions">
         <Link to={`/yarns/${item.id}`}>View details</Link>
         <button

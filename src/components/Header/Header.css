@@ -5,16 +5,16 @@
 }
 
 .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .brand {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .brand h1 {
@@ -44,6 +44,10 @@
   color: var(--color-brand);
 }
 
+/* REVIEW: This rule conflicts with .brand h1 above (line 20-25) which sets
+   font-size to 1.8rem. This selector sets it to 2.6rem, and since both match the
+   same <h1>, the result depends on source order. If 1.8rem is intended, remove this
+   block. If 2.6rem is intended, remove the font-size from .brand h1. */
 .site-header h1 {
   font-size: 2.6rem;
   letter-spacing: -0.02em;
@@ -56,6 +60,10 @@ main.container {
   padding-bottom: 40px;
 }
 
+/* REVIEW: This .active selector is very broad — it will match any element with
+   class "active" across the entire app. The more specific .nav-link.active rule
+   above (line 42) already handles the nav styling. Consider removing this or
+   scoping it more tightly to avoid unintended side effects. */
 .active {
   font-weight: bold;
 }
