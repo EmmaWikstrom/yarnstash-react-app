@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ItemForm } from "../components/ItemForm/ItemForm";
 
-
 export function YarnStashPage() {
   const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
@@ -33,7 +32,6 @@ export function YarnStashPage() {
       item.id === updatedItem.id ? { ...item, ...updatedItem } : item,
     );
 
-    
     setItems(nextItems);
     const localItems = nextItems.filter((item) => item.isLocal);
     localStorage.setItem("yarnStash", JSON.stringify(localItems));
@@ -42,6 +40,8 @@ export function YarnStashPage() {
     setMessage(`Updated ${updatedItem.name}!`);
   };
 
+  // REVIEW: If items.find returns undefined (item already removed or id mismatch),
+  // deletedItem.name on the next line will crash. Add a guard check for undefined.
   const handleDeleteItem = (id) => {
     const deletedItem = items.find((item) => item.id === id);
 
@@ -63,6 +63,9 @@ export function YarnStashPage() {
     setMessage(`Removed ${deletedItem.name} from stash!`);
   };
 
+  // REVIEW: The localStorage parsing logic (getItem → JSON.parse → Array.isArray check)
+  // is duplicated here and in YarnDetailsPage. Extract it into a shared helper function
+  // (e.g., getLocalYarns()) to keep things DRY.
   useEffect(() => {
     const fetchYarns = async () => {
       try {
@@ -83,6 +86,9 @@ export function YarnStashPage() {
 
         setItems([...apiYarns, ...storedYarns]);
       } catch (error) {
+        // REVIEW: The API error is logged but never shown to the user. The page will
+        // silently show an empty list. Consider setting an error state and displaying
+        // a user-facing message (like YarnDetailsPage does with setErrorMessage).
         console.error("Error fetching yarns:", error);
       }
     };

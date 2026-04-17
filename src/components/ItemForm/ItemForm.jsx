@@ -8,6 +8,9 @@ export function ItemForm({
   editingItem,
   message,
 }) {
+  // REVIEW: Consider adding label elements (<label>) for each input to improve
+  // accessibility. Screen readers currently have no way to associate the inputs
+  // with a description; only placeholder text is used.
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [weight, setWeight] = useState("");
@@ -23,6 +26,10 @@ export function ItemForm({
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // REVIEW: setMessage is not passed as a prop when this form is used from
+    // YarnDetailsPage, so calling setMessage here will throw "setMessage is not
+    // a function". Either provide a default (e.g., setMessage = () => {}) via
+    // a default parameter, or pass setMessage from YarnDetailsPage as well.
     if (!name.trim()) {
       setMessage("Name is required");
       return;
@@ -68,6 +75,10 @@ export function ItemForm({
           value={weight}
           onChange={(event) => setWeight(event.target.value)}
         />
+        {/* REVIEW: The message prop is also undefined when used from YarnDetailsPage,
+            so the ternary `message ? "is-visible" : ""` will always be falsy. This
+            won't crash, but the validation message ("Name is required") will never
+            appear on that page. */}
         <div className="form-actions">
           <p className={`message ${message ? "is-visible" : ""}`}>
             {message || "\u00A0"}

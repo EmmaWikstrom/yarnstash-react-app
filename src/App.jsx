@@ -5,6 +5,9 @@ import { HomePage } from "./pages/HomePage";
 import { YarnDetailsPage } from "./pages/YarnDetailsPage";
 import { Layout } from "./components/Layout/Layout";
 
+// REVIEW: The <Layout> wrapper is repeated for every route. Consider using a
+// layout route (React Router's <Route element={<Layout />}>) with an <Outlet />
+// inside Layout to avoid the repetition and keep routes cleaner.
 export function App() {
   return (
     <BrowserRouter>

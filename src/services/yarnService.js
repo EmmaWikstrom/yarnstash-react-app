@@ -1,33 +1,35 @@
+// REVIEW: The API base URL is hardcoded. Consider moving it to an environment
+// variable (e.g., REACT_APP_API_URL) so it can differ between dev/staging/prod.
 const BASE_URL = "https://knitting-api.onrender.com/api/yarns";
 
 export async function getAllYarns() {
-    const response = await fetch(BASE_URL);
+  const response = await fetch(BASE_URL);
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch yarns");
-    }
+  if (!response.ok) {
+    throw new Error("Failed to fetch yarns");
+  }
 
-    const data = await response.json();
+  const data = await response.json();
 
-    return data.map((item) => ({
-        ...item,
-        id: item._id,
-        isLocal: false,
-    }));
+  return data.map((item) => ({
+    ...item,
+    id: item._id,
+    isLocal: false,
+  }));
 }
 
 export async function getYarnById(id) {
-    const response = await fetch(`${BASE_URL}/${id}`);
+  const response = await fetch(`${BASE_URL}/${id}`);
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch yarn details");
-    }
+  if (!response.ok) {
+    throw new Error("Failed to fetch yarn details");
+  }
 
-    const data = await response.json();
+  const data = await response.json();
 
-    return {
-        ...data,
-        id: data._id,
-        isLocal: false,
-    };
+  return {
+    ...data,
+    id: data._id,
+    isLocal: false,
+  };
 }
