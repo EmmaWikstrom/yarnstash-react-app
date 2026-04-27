@@ -21,7 +21,9 @@ export function ItemCard({ item, onDeleteItem, onEditItem }) {
       </dl>
 
       <div className="card-actions">
-        <Link to={`/yarns/${item.id}`}>View details</Link>
+        <Link to={`/yarns/${item.id}`} className="secondary-button">
+          View details
+        </Link>
         <button
           type="button"
           className="secondary-button"
