@@ -4,9 +4,9 @@ export function ItemForm({
   onAddItem,
   onUpdateItem,
   onCancelEdit,
-  setMessage,
+  setMessage = () => {},
   editingItem,
-  message,
+  message = "",
 }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
@@ -50,24 +50,35 @@ export function ItemForm({
     <>
       <h2>{editingItem ? "Edit yarn" : "Add new yarn"}</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Brand"
-          value={brand}
-          onChange={(event) => setBrand(event.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Weight"
-          value={weight}
-          onChange={(event) => setWeight(event.target.value)}
-        />
+        <label>
+          Name
+          <input
+            type="text"
+            placeholder="e.g. Heavy Merino, Alpaca..."
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </label>
+
+        <label>
+          Brand
+          <input
+            type="text"
+            placeholder="e.g. Knitting for Olive, Drops..."
+            value={brand}
+            onChange={(event) => setBrand(event.target.value)}
+          />
+        </label>
+
+        <label>
+          Weight
+          <input
+            type="text"
+            placeholder="e.g. Worsted, DK, Fingering..."
+            value={weight}
+            onChange={(event) => setWeight(event.target.value)}
+          />
+        </label>
         <div className="form-actions">
           <p className={`message ${message ? "is-visible" : ""}`}>
             {message || "\u00A0"}
