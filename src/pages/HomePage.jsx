@@ -10,11 +10,10 @@ export function HomePage() {
       </p>
       <p>
         Start by exploring the{" "}
-        <NavLink 
-        to="/yarns" 
-        className="nav-link">
+        <NavLink to="/yarns" className="nav-link">
           yarn stash
-        </NavLink>.
+        </NavLink>
+        .
       </p>
     </main>
   );

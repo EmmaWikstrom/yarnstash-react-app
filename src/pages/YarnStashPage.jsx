@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ItemForm } from "../components/ItemForm/ItemForm";
 
-
 export function YarnStashPage() {
   const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
@@ -33,7 +32,6 @@ export function YarnStashPage() {
       item.id === updatedItem.id ? { ...item, ...updatedItem } : item,
     );
 
-    
     setItems(nextItems);
     const localItems = nextItems.filter((item) => item.isLocal);
     localStorage.setItem("yarnStash", JSON.stringify(localItems));

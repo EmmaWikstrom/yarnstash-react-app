@@ -5,10 +5,7 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="container header-content">
-        <NavLink 
-        to="/" 
-        end
-        className="brand">
+        <NavLink to="/" end className="brand">
           <h1>Yarn Studio</h1>
         </NavLink>
 

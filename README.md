@@ -4,6 +4,7 @@ A React application for managing a personal yarn collection.
 Designed to make it easy to keep track of your yarn and quickly find what you need.
 
 ## Features
+
 - View yarn from an external API
 - Add new yarn items
 - Edit existing items
@@ -13,6 +14,7 @@ Designed to make it easy to keep track of your yarn and quickly find what you ne
 - Clean and intuitive interface
 
 ## Tech Stack
+
 - React
 - JavaScript (ES6+)
 - CSS
@@ -41,12 +43,13 @@ The API is hosted on a free tier service and may take up to 30–50 seconds to r
 Add, edit and delete actions are currently handled in React state to ensure a fast and responsive UI.
 
 ## Future Improvements
+
 - Persist add/edit/delete to the API
 - Improve form validation and user feedback
 - Add detailed item view
 - Enhance UI polish and interactions
 
-## Live Demo 
+## Live Demo
 
 [Open Yarn Stash](https://yarnstash-sooty.vercel.app/)
 

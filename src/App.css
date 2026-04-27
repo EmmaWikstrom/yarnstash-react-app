@@ -142,7 +142,7 @@ form button:disabled {
   margin: 20px 0 0 0;
 }
 
-.card-actions button { 
+.card-actions button {
   font-size: 0.9rem;
   padding: 6px 10px;
 }
@@ -170,7 +170,7 @@ form button:disabled {
     width: fit-content;
   }
 
-    .form-actions {
+  .form-actions {
     grid-column: 1 / -1;
   }
 }
